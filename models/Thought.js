@@ -1,32 +1,6 @@
 const { Schema, model, Types } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
-// Thought Model for people to express themselves
-const ThoughtSchema = new Schema(
-{
-    thoughtText: {
-      type: String,
-      required: true,
-      min:[1,"It seems to be blank. No thoughts on this?"],
-      max:[280, "Hmmm a bit wordy, try to consoldiate your thoughts."]
 
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: createdAtVal => dateFormat(createdAtVal)
-    },
-    username: {
-      type: String,
-      required: true,
-    },
-    reactions:[ReactionSchema]
-  },
-  {
-    toJSON: {
-      getters: true
-    }
-  }
-);
 // Reaction SCHEMA attached to the Thought Model used to help people respond to their friends thoughts.  
 const ReactionSchema = new Schema(
   {
@@ -54,12 +28,38 @@ const ReactionSchema = new Schema(
       virtuals: true,
       getters: true
     },
-    id: false
+    // id: false
   }
 );
+// Thought Model for people to express themselves
+const ThoughtSchema = new Schema(
+{
+    thoughtText: {
+      type: String,
+      required: true,
+      min:[1,"It seems to be blank. No thoughts on this?"],
+      max:[280, "Hmmm a bit wordy, try to consoldiate your thoughts."]
 
-ReactionSchema.virtual('reactionCount').get(function() {
-  return this.replies.length;
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: createdAtVal => dateFormat(createdAtVal)
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    reactions:[ReactionSchema]
+  },
+  {
+    toJSON: {
+      getters: true
+    }
+  }
+);
+ThoughtSchema.virtual('reactionCount').get(function() {
+  return this.reactions.length;
 });
 
 const Thought = model('Thought', ThoughtSchema);

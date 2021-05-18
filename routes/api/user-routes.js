@@ -5,7 +5,7 @@ const {
     getOneUser,
     updateUser,
     deleteUser,
-    removeThought,
+    // removeThought,
     newFriend,
     oldFriend
   } = require('../../controllers/user-controller');
@@ -23,7 +23,7 @@ router
     .delete(deleteUser)// this may be the following route instead of this
 
 // REMOVE all users thoughts when user is removed
-router.route('/:userId/:thoughtId').delete(removeThought)
+// router.route('/:userId/:thoughtId').delete(removeThought)
 
 //  ADD a new friend to a users friend list
 router.route('/api/users/:userId/friends/:friendId').post(newFriend)
