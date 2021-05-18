@@ -12,9 +12,9 @@ const {
 router
     .route('/')
     .get(getAllThought)
-    .post(createThought)  //don't forget to push the created thought's _id to the associated user's thoughts array field
+    .post(createThought)  
 
-// Crud methods for a specific  THOUGHT
+
 router
     .route('/:id')
     .get(getOneThought)//to get a single thought by its _id
